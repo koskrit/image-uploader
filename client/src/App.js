@@ -36,7 +36,7 @@ export default function App() {
         files={files}
         onupdatefiles={setFiles}
         allowMultiple={true}
-        maxFiles={3}
+        maxFiles={10}
         server="http://localhost:4000/post"
         name="files" /* sets the file input name, it's filepond by default */
         labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'

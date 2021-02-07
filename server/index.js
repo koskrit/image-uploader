@@ -12,8 +12,9 @@ const PORT = process.env.PORT || 4000;
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function(req, file, cb){
-      cb(null, file.fieldname + '-' + Date.now() +     path.extname(file.originalname));
+      cb(null, file.originalname);
   }
+  
 });
 
 app.use(cors());
@@ -23,22 +24,21 @@ const upload = multer({ dest: 'uploads/' ,storage:storage})
 
 
 
-app.get("/:name/:age", (req, res) => {
-  res.send("<h1>Testing the api calls mr " + req.params.name + " age " + req.params.age + "</h1>");
-      // to add query strings in url : ?query1=value&query2=value | req.query
-      // params are required | query strings are optional
-});
-
 app.get('/static',(req,res) => {
    res.sendFile(path.join(__dirname,"folder","file.html"))
    })
 
+app.get("/uploads/:name",(req,res) => {
+res.sendFile(path.join(__dirname,"uploads", req.params.name))
+
+})
+
 
 app.post("/post",upload.any({name:"image.png"}),  async (req, res) => {
-  console.log(req.file,req.body);
+  console.log(req.files[0].originalname);
 
 
-  await res.send('jksadf')
+  await res.send('image saved')
 });
 
 app.listen(PORT, () => {
