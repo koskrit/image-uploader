@@ -18,15 +18,9 @@ const storage = multer.diskStorage({
 });
 
 app.use(cors());
-app.use('/alias',express.static(path.join(__dirname,"folder","file.html")))
 
 const upload = multer({ dest: 'uploads/' ,storage:storage})
 
-
-
-app.get('/static',(req,res) => {
-   res.sendFile(path.join(__dirname,"folder","file.html"))
-   })
 
 app.get("/uploads/:name",(req,res) => {
 res.sendFile(path.join(__dirname,"uploads", req.params.name))
@@ -36,7 +30,6 @@ res.sendFile(path.join(__dirname,"uploads", req.params.name))
 
 app.post("/post",upload.any({name:"image.png"}),  async (req, res) => {
   console.log(req.files[0].originalname);
-
 
   await res.send('image saved')
 });
