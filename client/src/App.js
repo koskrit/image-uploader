@@ -8,6 +8,8 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 
 import AppBar from "./Components/appBar"
+import FloatBtn from "./Components/floating-btn"
+
 import {Container,makeStyles} from "@material-ui/core/"
 import "./App.css"
 
@@ -41,7 +43,7 @@ export default function App() {
         name="files" /* sets the file input name, it's filepond by default */
         labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
       />
-      
+      <FloatBtn/>
     </div>
   )
 }
