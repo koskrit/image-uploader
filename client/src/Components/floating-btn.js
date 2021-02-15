@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-
+import "./floating-btn.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       
     },
-  }
+  },
+ 
 }));
 let clearFiles;
 
@@ -25,7 +26,7 @@ export default function FloatingActionButton(props) {
   clearFiles = props.clearTheFiles
   return (
     <div className={classes.root}>
-      <Fab color="primary" aria-label="Delete" onClick = {deleteItems}>
+      <Fab color="primary" className ="FloatingActionButton" aria-label="Delete" onClick = {deleteItems}>
           <h2>-</h2>
       </Fab>
      
