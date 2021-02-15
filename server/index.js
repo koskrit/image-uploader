@@ -37,6 +37,7 @@ app.get("/delete",  (req, res) => {
          });
       });
    });
+   res.send('file deleted')
 });
 
 app.listen(PORT, () => {

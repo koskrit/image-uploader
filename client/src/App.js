@@ -20,21 +20,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-//http://localhost:3000
 
 
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
+
 // Our app
 export default function App() {
   const [files, setFiles] = useState([])
   const styles = useStyles()
+  
+  const clearFiles = () => {
+    setFiles([])
+  }
   return (
     <div className="App">
       <AppBar/>
-      
-      <FilePond 
+      {console.log(<FilePond/>,"this is the filepond")}
+       <FilePond 
         files={files}
         onupdatefiles={setFiles}
         allowMultiple={true}
@@ -42,8 +46,9 @@ export default function App() {
         server="http://localhost:4000/post"
         name="files" /* sets the file input name, it's filepond by default */
         labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+       
       />
-      <FloatBtn/>
+      <FloatBtn clearTheFiles ={clearFiles} />
     </div>
   )
 }

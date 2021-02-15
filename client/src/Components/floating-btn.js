@@ -11,15 +11,18 @@ const useStyles = makeStyles((theme) => ({
     },
   }
 }));
+let clearFiles;
 
 async function deleteItems() {
-
 await fetch('http://localhost:4000/delete')
+
+clearFiles([])
+
 }
 
-export default function FloatingActionButton() {
+export default function FloatingActionButton(props) {
   const classes = useStyles();
-
+  clearFiles = props.clearTheFiles
   return (
     <div className={classes.root}>
       <Fab color="primary" aria-label="Delete" onClick = {deleteItems}>
