@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 let clearFiles;
 
 async function deleteItems() {
-await fetch('http://localhost:4000/delete')
+await fetch('http://localhost:4000/delete') //https://silk-full-parsnip.glitch.me/delete
 
 clearFiles([])
 

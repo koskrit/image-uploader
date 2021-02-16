@@ -20,6 +20,8 @@ app.use(cors());
 
 const upload = multer({ dest: "uploads/", storage: storage });
 
+let lastUploadLink;
+
 app.get("/uploads/:name", (req, res) => {
    res.sendFile(path.join(__dirname, "uploads", req.params.name));
 });
@@ -27,7 +29,10 @@ app.get("/uploads/:name", (req, res) => {
 app.post("/post", upload.any({ name: "image.png" }), async (req, res) => {
    console.log(req.files[0].originalname);
 
-   await res.send("image saved");
+   lastUploadLink = req.protocol+ "://" + req.get("host") + "/uploads/" + req.files[0].originalname
+
+   await res.send(req.protocol+ "://" + req.get("host") + "/uploads/" + req.files[0].originalname );
+
 });
 app.get("/delete",  (req, res) => {
    fs.readdir("uploads", (err, results) => {
@@ -40,11 +45,14 @@ app.get("/delete",  (req, res) => {
    res.send('file deleted')
 });
 
+app.get('/url',(req,res) => {
+
+   res.send(lastUploadLink)
+})
+
 app.listen(PORT, () => {
    console.log("listening on http://localhost:4000");
 });
 
 // to deploy create a vercel.json (delete previous .gitignore, .vercel(Folder)
-
-
 
