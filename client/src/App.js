@@ -49,6 +49,13 @@ export default function App() {
     <div class = "url-container"><p class = "url-link">${data} </p> <button class = "url-btn">🔗</button>  </div>
 `
 container.insertAdjacentElement('afterbegin',div)
+    let urlBtn = document.querySelector('.url-btn')
+
+    urlBtn.addEventListener('click',e => {
+      navigator.clipboard.writeText(data)
+      
+      })
+
   }
   return (
     <div className="App">
