@@ -46,7 +46,7 @@ export default function App() {
     let div =document.createElement('div')
 
     div.innerHTML = `
-    <div class = "url-container"><p class = "url-link">${data} </p> <button class = "url-btn">📋</button>  </div>
+    <div class = "url-container"><p class = "url-link">${data} </p> <button class = "url-btn">🔗</button>  </div>
 `
 container.insertAdjacentElement('afterbegin',div)
   }
