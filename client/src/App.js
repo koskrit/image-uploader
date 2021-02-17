@@ -42,6 +42,13 @@ export default function App() {
     let raw = await fetch('http://localhost:4000/url') //192.168.1.2 (ip for mobile test)
     let data = await raw.text()
     alert(data)
+    let container = document.querySelector('.filepond--image-preview-wrapper')
+    let div =document.createElement('div')
+
+    div.innerHTML = `
+    <div class = "url-container"><p class = "url-link">${data} </p> <button class = "url-btn">📋</button>  </div>
+`
+container.insertAdjacentElement('afterbegin',div)
   }
   return (
     <div className="App">

@@ -18,4 +18,22 @@ body{
 	display:none;
 }
 
-.filepond--hopper .filepond--drop-label{ }
+
+/*
+url link (vanilla javascript)
+*/
+
+.url-container{
+
+	z-index:4;
+	text-align:center;
+	font-family:'Helvetica Neue';
+	font-size:19.8px !important;
+	top:101px;
+	position:relative;
+	background-color:rgba(12,12,12,0.76) !important;
+	width: auto;
+	user-select: auto;
+	padding: 10px
+}
+
