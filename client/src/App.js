@@ -10,6 +10,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import AppBar from "./Components/appBar"
 import FloatBtn from "./Components/floating-btn"
 
+
 import {Container,makeStyles} from "@material-ui/core/"
 import "./App.css"
 
@@ -38,7 +39,7 @@ export default function App() {
     setFiles([])
   }
   const getLastItemLink = async () => {
-    let raw = await fetch('http://localhost:4000/url')
+    let raw = await fetch('http://localhost:4000/url') //192.168.1.2 (ip for mobile test)
     let data = await raw.text()
     alert(data)
   }
@@ -46,7 +47,7 @@ export default function App() {
     <div className="App">
       <AppBar/>
       {console.log(<FilePond/>,"this is the filepond")}
-       <FilePond 
+       <FilePond allowPaste = {true}
         files={files}
         onupdatefiles={setFiles}
         allowMultiple={true}
