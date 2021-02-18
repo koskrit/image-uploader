@@ -13,17 +13,23 @@ const useStyles = makeStyles((theme) => ({
  
 }));
 let clearFiles;
+let clearFileNames;
 
 async function deleteItems() {
 await fetch('http://localhost:4000/delete') //https://silk-full-parsnip.glitch.me/delete
 
 clearFiles([])
+clearFileNames([])
+
+let notifications = document.querySelectorAll('div.noty_body')
+notifications.forEach(notification => notification.style.display ="none")
 
 }
 
 export default function FloatingActionButton(props) {
   const classes = useStyles();
   clearFiles = props.clearTheFiles
+  clearFileNames = props.clearFileNames
   return (
     <div className={classes.root}>
       <Fab color="primary" className ="FloatingActionButton" aria-label="Delete" onClick = {deleteItems}>

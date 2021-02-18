@@ -41,7 +41,7 @@ export default function App() {
       let raw = await fetch("http://localhost:4000/url"); //192.168.1.2 (ip for mobile test)
       let data = await raw.text();
 
-      let container = document.querySelector(".filepond--image-preview-wrapper");
+      let containers = Array.from(document.querySelectorAll(".filepond--image-preview-wrapper"));
       let div = document.createElement("div");
 
       let copyAlert = new Noty({
@@ -70,8 +70,11 @@ export default function App() {
 
       div.innerHTML = `
     <div class = "url-container"><p class = "url-link">${data} </p> <button class = "url-btn">🔗</button>  </div>
-`;
-      container.insertAdjacentElement("afterbegin", div);
+`;    
+   let match = data.split('/')[4]
+      console.log(match)
+   let container1 = containers.find(container => container.parentElement.querySelector('.filepond--file-info').children[0].innerText === match)
+      container1.insertAdjacentElement("afterbegin", div);
       let urlBtn = document.querySelector(".url-btn");
 
       urlBtn.addEventListener("click", (e) => {
@@ -82,7 +85,7 @@ export default function App() {
    return (
       <div className="App">
          <AppBar />
-         {console.log(<FilePond />, "this is the filepond")}
+         
          <FilePond
             allowPaste={true}
             files={files}
@@ -100,9 +103,10 @@ export default function App() {
                   setFileNames([...fileNames, fileItem.file.name]);
                }
                console.log(fileNames);
+               console.log(fileItem);
             }}
          />
-         <FloatBtn clearTheFiles={clearFiles} />
+         <FloatBtn clearTheFiles={clearFiles} clearFileNames = {setFileNames} />
       </div>
    );
 }
