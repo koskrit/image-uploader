@@ -13,6 +13,11 @@ import FloatBtn from "./Components/floating-btn";
 import { Container, makeStyles } from "@material-ui/core/";
 import "./App.css";
 
+import Noty from 'noty';  
+import "../node_modules/noty/lib/noty.css";  
+import "../node_modules/noty/lib/themes/sunset.css";  
+
+
 const useStyles = makeStyles((theme) => ({
    container: {},
 }));
@@ -30,12 +35,37 @@ export default function App() {
    const clearFiles = () => {
       setFiles([]);
    };
+
+
+
    const getLastItemLink = async () => {
       let raw = await fetch("http://localhost:4000/url"); //192.168.1.2 (ip for mobile test)
       let data = await raw.text();
-      alert(data);
+      
       let container = document.querySelector(".filepond--image-preview-wrapper");
       let div = document.createElement("div");
+
+      let copyAlert = new Noty({
+         theme:"sunset",
+         type: "success",
+         layout: "topRight",
+         text: "Link copied!",
+         timeout:1000,
+      });
+
+
+      let copyMessage = new Noty({
+         theme:"sunset",
+         type: "alert",
+         layout: "centerRight",
+         text: "File Link " + data + "🔗",
+         
+         callbacks: {onClose:() => {navigator.clipboard.writeText(data);
+            copyAlert.show()
+         }}
+      });
+
+      copyMessage.show()
 
       div.innerHTML = `
     <div class = "url-container"><p class = "url-link">${data} </p> <button class = "url-btn">🔗</button>  </div>
@@ -45,6 +75,7 @@ export default function App() {
 
       urlBtn.addEventListener("click", (e) => {
          navigator.clipboard.writeText(data);
+         copyAlert.show()
       });
    };
    return (
@@ -66,3 +97,15 @@ export default function App() {
       </div>
    );
 }
+
+
+/* issues to fix :
+ link container attachement to correct Filepond instance when(
+    uploads 2nd file before 1st ended sending 
+    drag file inbetween files [now only first in row get url container]
+    uploads multiple images?
+ )
+
+ noty now showing a second time on event
+
+*/ 
