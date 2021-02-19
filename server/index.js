@@ -20,7 +20,7 @@ app.use(cors());
 
 const upload = multer({ dest: "uploads/", storage: storage });
 
-let lastUploadLink; // make it an array
+let lastUploadLinks = []; // make it an array
 
 app.get("/uploads/:name", (req, res) => {
    res.sendFile(path.join(__dirname, "uploads", req.params.name));
@@ -29,7 +29,7 @@ app.get("/uploads/:name", (req, res) => {
 app.post("/post", upload.any({ name: "image.png" }), async (req, res) => {
    console.log(req.files[0].originalname);
    // push link in array 
-   lastUploadLink = req.protocol+ "://" + req.get("host") + "/uploads/" + req.files[0].originalname
+   lastUploadLinks.push( req.protocol+ "://" + req.get("host") + "/uploads/" + req.files[0].originalname)
 
    await res.send(req.protocol+ "://" + req.get("host") + "/uploads/" + req.files[0].originalname );
 
@@ -47,7 +47,8 @@ app.get("/delete",  (req, res) => {
 
 app.get('/url',(req,res) => {
 
-   res.send(lastUploadLink) // send array joined with ","
+   res.send(lastUploadLinks.join(',')) // send array joined with ","
+   lastUploadLinks = []
 })
 
 app.listen(PORT, () => {

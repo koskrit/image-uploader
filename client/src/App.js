@@ -39,13 +39,10 @@ export default function App() {
 
    const getLastItemLink = async () => {
       let raw = await fetch("http://localhost:4000/url"); //192.168.1.2 (ip for mobile test)
-      let data = await raw.text(); // split datas to array
+      let datas = await raw.text(); // split datas to array
       // do forEach item of datas (named : data)
       // watch for notifications to work
-
-      let containers = Array.from(document.querySelectorAll(".filepond--image-preview-wrapper"));
-      let div = document.createElement("div");
-
+      datas = datas.split(',')
       let copyAlert = new Noty({
          theme: "sunset",
          type: "success",
@@ -54,7 +51,14 @@ export default function App() {
          timeout: 1000,
       });
 
-      let copyMessage = new Noty({
+      datas.forEach(data => {
+         if(data ){
+      let containers = Array.from(document.querySelectorAll(".filepond--image-preview-wrapper"));
+      let div = document.createElement("div");
+
+      
+      
+        new Noty({
          theme: "sunset",
          type: "alert",
          layout: "centerRight",
@@ -66,9 +70,9 @@ export default function App() {
                copyAlert.show();
             },
          },
-      });
-
-      copyMessage.show();
+      }).show();
+      
+     
 
       div.innerHTML = `
     <div class = "url-container"><p class = "url-link">${data} </p> <button class = "url-btn">🔗</button>  </div>
@@ -85,6 +89,7 @@ export default function App() {
          copyAlert.shown = false
          copyAlert.show();
       });
+   }})
    };
    return (
       <div className="App">
