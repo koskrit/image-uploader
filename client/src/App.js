@@ -39,7 +39,9 @@ export default function App() {
 
    const getLastItemLink = async () => {
       let raw = await fetch("http://localhost:4000/url"); //192.168.1.2 (ip for mobile test)
-      let data = await raw.text();
+      let data = await raw.text(); // split datas to array
+      // do forEach item of datas (named : data)
+      // watch for notifications to work
 
       let containers = Array.from(document.querySelectorAll(".filepond--image-preview-wrapper"));
       let div = document.createElement("div");
@@ -79,6 +81,8 @@ export default function App() {
 
       urlBtn.addEventListener("click", (e) => {
          navigator.clipboard.writeText(data);
+         copyAlert.showing = false;
+         copyAlert.shown = false
          copyAlert.show();
       });
    };
