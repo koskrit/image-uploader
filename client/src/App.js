@@ -63,9 +63,9 @@ export default function App() {
          type: "alert",
          layout: "centerRight",
          text: "File Link " + data + "🔗",
-
+         timeout:2000,
          callbacks: {
-            onClose: () => {
+            onHover: () => {
                navigator.clipboard.writeText(data);
                copyAlert.show();
             },
@@ -81,8 +81,8 @@ export default function App() {
       console.log(match)
    let container1 = containers.find(container => container.parentElement.querySelector('.filepond--file-info').children[0].innerText === match)
       container1.insertAdjacentElement("afterbegin", div);
-      let urlBtn = document.querySelector(".url-btn");
-
+      let urlBtn = container1.querySelector(".url-btn");
+      console.log(urlBtn);
       urlBtn.addEventListener("click", (e) => {
          navigator.clipboard.writeText(data);
          copyAlert.showing = false;
@@ -121,12 +121,5 @@ export default function App() {
 }
 
 /* issues to fix :
- link container attachement to correct Filepond instance when(
-    uploads 2nd file before 1st ended sending 
-    drag file inbetween files [now only first in row get url container]
-    uploads multiple images?
- )
-
- noty now showing a second time on event
-
+ fix copy button not working sometimes when uploading multiple files
 */
