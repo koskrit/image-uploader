@@ -91,6 +91,23 @@ export default function App() {
       });
    }})
    };
+
+   async function getFiles (error, fileItem)  {
+      if (fileNames.some((item) => fileItem.file.name === item)) {
+         fileItem.abortLoad();
+      } else {
+         setFileNames([...fileNames, fileItem.file.name]);
+      }
+      console.log(fileNames);
+      console.log(fileItem);
+   }
+
+   async function removeFile (error,fileItem){
+      let fileName =fileItem.file.name
+      let raw = await fetch(`http://localhost:4000/delete-file/${fileName}`)
+   }
+
+
    return (
       <div className="App">
          <AppBar />
@@ -105,21 +122,21 @@ export default function App() {
             name="files" /* sets the file input name, it's filepond by default */
             labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
             onprocessfile={getLastItemLink}
-            onaddfile={async (error, fileItem) => {
-               if (fileNames.some((item) => fileItem.file.name === item)) {
-                  fileItem.abortLoad();
-               } else {
-                  setFileNames([...fileNames, fileItem.file.name]);
-               }
-               console.log(fileNames);
-               console.log(fileItem);
-            }}
+            onaddfile={getFiles}
+            onremovefile={removeFile}
          />
          <FloatBtn clearTheFiles={clearFiles} clearFileNames = {setFileNames} />
       </div>
    );
 }
 
-/* issues to fix :
- fix copy button not working sometimes when uploading multiple files
+//
+/*
+
+** put files from server to client on Initiation
+(
+   -find how to add a file instance on state
+)   
+
+
 */

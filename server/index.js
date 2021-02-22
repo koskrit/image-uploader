@@ -45,6 +45,21 @@ app.get("/delete",  (req, res) => {
    res.send('file deleted')
 });
 
+app.get("/delete-file/:name",  (req, res) => {
+   let fileName = req.params.name
+   fs.readdir("uploads", (err, results) => {
+      results.forEach((file) => {
+         if(file === fileName)
+         {fs.unlink("uploads/" + file, () => {
+            console.log("file " + file + " deleted");
+         });}
+      });
+   });
+   res.send('file deleted')
+});
+
+
+
 app.get('/url',(req,res) => {
 
    res.send(lastUploadLinks.join(',')) // send array joined with ","
